@@ -52,6 +52,7 @@ public class ThreadServer extends Thread {
 //                    Infos vms = new Infos();
 //                    vms.printInfos(client);
 //                }
+            PrintStream saida = new PrintStream(accept.getOutputStream());
             while (scanner.hasNextLine()) {
                 final String line = scanner.nextLine().trim();
                 final String[] fullSplit = line.split("\\|");
@@ -62,17 +63,18 @@ public class ThreadServer extends Thread {
 
                 String[] memoSplit = fullSplit[1].split(" ");
                 data.setMemUsada(memoSplit[0]);
+                System.out.println(memoSplit);
                 data.setMemLivre(memoSplit[4]);
 
                 getDatas().add(data);
                 if (getDatas().size() > TAM_FILA) {
                     getDatas().poll();
                 }
-                
+                saida.println(true);
+
             }
             scanner.close();
         } catch (IOException ex) {
-            Logger.getLogger(ThreadServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
